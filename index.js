@@ -2,6 +2,8 @@ const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const morgan = require('morgan');
 const app = express();
+const cors = require('cors');
+
 
 morgan.token('body', function (req, res) {
 	return JSON.stringify(req.body);
@@ -18,6 +20,8 @@ const logger = function (tokens, req, res) {
 	].join(' ')
 }
 
+app.use(express.static('build'));
+app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'))
 
